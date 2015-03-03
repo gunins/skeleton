@@ -4,22 +4,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Binding Example</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
+
+    <!-- Custom styles for this template -->`
     <link href="css/dashboard.css" rel="stylesheet">
-    <!-- Requirejs file -->
     <script src="bower_components/requirejs/require.js"></script>
-    <!-- Configuration for requirejs -->
-    <script src="config.js"></script>
+    <script src="config.prod.js"></script>
     <!--
-        location of framework
-        data-name: location of main script for Application
+        data-name: location to app
         data-target?: location to container if not set, use document.body
     -->
-    <script data-name="App" data-target="body" src="node_modules/stonewalljs/dev/loader.js"></script>
+    <script data-name="App" src="bower_components/stonewall/dist/prod/loader.js"></script>
 
 </head>
 <body>

@@ -4,13 +4,15 @@ module.exports = function (grunt) {
             'coders/component/CpCoder',
             'coders/placeholders/plCoder',
             'coders/databind/bdCoder',
-            'coders/router/RouterCoder'
+            'coders/router/RouterCoder',
+            'coders/style/styleCoder'
         ],
         templateDecoders: [
             'coders/component/CpDecoder',
             'coders/placeholders/plDecoder',
             'coders/databind/bdDecoder',
-            'coders/router/RouterDecoder'
+            'coders/router/RouterDecoder',
+            'coders/style/styleDecoder'
         ],
         exclude: [
             'coders/component/CpCoder',
@@ -19,6 +21,8 @@ module.exports = function (grunt) {
             'coders/placeholders/plDecoder',
             'coders/databind/bdDecoder',
             'coders/databind/bdCoder',
+            'coders/router/RouterDecoder',
+            'coders/style/styleDecoder',
             'widget/Constructor',
             'widget/App',
             'templating/Decoder',
@@ -36,14 +40,13 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        clean: ['target'],
+        clean: ['target', 'dist'],
         requirejs: {
-
             basic: {
                 options: {
                     baseUrl: 'src',
                     removeCombined: true,
-                    optimize: 'none',
+                    optimize: 'uglify2',
                     templateCoders: coders.templateCoders,
                     templateDecoders: coders.templateDecoders,
                     stubModules: stubModules,
@@ -54,11 +57,30 @@ module.exports = function (grunt) {
 
                 }
             }
+        },
+        copy: {
+            target: {
+                files: [
+                    {expand: true, cwd: './', src: [
+                        'index.html',
+                        'config.prod.js',
+                        'target/App.js',
+                        'images/**/**',
+                        'css/*',
+                        'bower_components/requirejs/require.js',
+                        'bower_components/stonewall/dist/prod/loader.js',
+                        'bower_components/bootstrap/dist/css/bootstrap.min.css',
+                        'bower_components/bootstrap/dist/fonts/*',
+                    ], dest: 'dist'}
+                ]
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['clean', 'requirejs']);
+
+    grunt.registerTask('default', ['clean', 'requirejs', 'copy']);
 
 };
